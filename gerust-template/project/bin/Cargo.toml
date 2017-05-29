@@ -1,0 +1,11 @@
+[package]
+name = "main"
+version = "0.1.0"
+authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
+
+[dependencies]
+config = { path = "../config" }
+
+[[bin]]
+name = "start"
+path = "start.rs"

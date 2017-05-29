@@ -1,0 +1,8 @@
+[files]
+files = []
+directories = ["bin", "app", "config"]
+templates = ["README.md", "config/init.rs", "config/Cargo.toml", "config/routes.rs", "config/lib.rs", "bin/start.rs", "bin/Cargo.toml", "Cargo.toml"]
+
+[config]
+version = "0.1.0"
+version_control = "git"

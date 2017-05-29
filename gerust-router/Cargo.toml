@@ -1,0 +1,9 @@
+[package]
+name = "gerust-router"
+version = "0.1.0"
+authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
+
+[dependencies]
+url = "*"
+gerust-routing = { path = "../gerust-routing" }
+futures = "0.1.13"

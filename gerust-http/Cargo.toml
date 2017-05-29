@@ -1,0 +1,9 @@
+[package]
+name = "gerust-http"
+version = "0.1.0"
+authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
+
+[dependencies]
+gerust-context = { path = "../gerust-context" }
+gerust-routing = { path = "../gerust-routing" }
+url = "*"
