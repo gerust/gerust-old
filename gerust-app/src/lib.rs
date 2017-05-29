@@ -1,5 +1,5 @@
 pub trait App {
-    type Controller: ?Sized;
+    type ControllerFactory: ?Sized;
 
-    fn controllers(&self) -> Vec<Box<Self::Controller>>;
+    fn controllers(&self) -> &[Box<Self::ControllerFactory>];
 }
