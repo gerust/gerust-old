@@ -6,7 +6,7 @@ use gerust_context::*;
 use gerust_routing::Router;
 use url::Url;
 
-pub trait HttpContext : Context {
+pub trait HttpContext: Context {
     type Router: Router;
     type Request;
 
