@@ -1,5 +1,5 @@
 [root]
-name = "gerust-routing"
+name = "gerust_routing"
 version = "0.1.0"
 dependencies = [
  "futures 0.1.14 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -12,50 +12,50 @@ version = "0.1.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
-name = "gerust-app"
+name = "gerust_app"
 version = "0.1.0"
 
 [[package]]
-name = "gerust-assembly"
+name = "gerust_assembly"
 version = "0.1.0"
 dependencies = [
  "futures 0.1.14 (registry+https://github.com/rust-lang/crates.io-index)",
- "gerust-context 0.1.0",
- "gerust-controller 0.1.0",
- "gerust-http 0.1.0",
- "gerust-router 0.1.0",
- "gerust-routing 0.1.0",
+ "gerust_context 0.1.0",
+ "gerust_controller 0.1.0",
+ "gerust_http 0.1.0",
+ "gerust_router 0.1.0",
+ "gerust_routing 0.1.0",
 ]
 
 [[package]]
-name = "gerust-context"
+name = "gerust_context"
 version = "0.1.0"
 dependencies = [
  "url 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
-name = "gerust-controller"
+name = "gerust_controller"
 version = "0.1.0"
 dependencies = [
- "gerust-context 0.1.0",
+ "gerust_context 0.1.0",
 ]
 
 [[package]]
-name = "gerust-http"
+name = "gerust_http"
 version = "0.1.0"
 dependencies = [
- "gerust-context 0.1.0",
- "gerust-routing 0.1.0",
+ "gerust_context 0.1.0",
+ "gerust_routing 0.1.0",
  "url 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
-name = "gerust-router"
+name = "gerust_router"
 version = "0.1.0"
 dependencies = [
  "futures 0.1.14 (registry+https://github.com/rust-lang/crates.io-index)",
- "gerust-routing 0.1.0",
+ "gerust_routing 0.1.0",
  "url 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 

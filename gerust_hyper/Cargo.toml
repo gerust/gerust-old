@@ -1,0 +1,12 @@
+[package]
+name = "gerust_hyper"
+version = "0.1.0"
+authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
+
+[dependencies]
+hyper = "0.11"
+futures = "0.1"
+gerust_server = { path = "../gerust_server" }
+gerust_http = { path = "../gerust_http" }
+gerust_assembly = { path = "../gerust_assembly" }
+gerust_context = { path = "../gerust_context" }

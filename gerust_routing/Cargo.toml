@@ -1,6 +1,8 @@
 [package]
-name = "gerust-app"
+name = "gerust_routing"
 version = "0.1.0"
 authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
 
 [dependencies]
+url = "*"
+futures = "0.1.13"

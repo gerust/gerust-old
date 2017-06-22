@@ -1,2 +1,2 @@
 [workspace]
-members = ["gerust-routing", "gerust-router", "gerust-context", "gerust-http", "gerust-assembly", "gerust-controller", "gerust-app"]
+members = ["gerust_routing", "gerust_router", "gerust_context", "gerust_http", "gerust_assembly", "gerust_controller", "gerust_app"]
