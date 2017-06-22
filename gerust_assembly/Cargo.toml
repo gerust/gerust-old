@@ -1,0 +1,12 @@
+[package]
+name = "gerust_assembly"
+version = "0.1.0"
+authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
+
+[dependencies]
+futures = "0.1.13"
+gerust_context = { path = "../gerust_context" }
+gerust_routing = { path = "../gerust_routing" }
+gerust_router = { path = "../gerust_router" }
+gerust_controller = { path = "../gerust_controller" }
+gerust_http = { path = "../gerust_http" }

@@ -1,7 +1,7 @@
 [package]
-name = "gerust-controller"
+name = "gerust_controller"
 version = "0.1.0"
 authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
 
 [dependencies]
-gerust-context = { path = "../gerust-context" }
+gerust_context = { path = "../gerust_context" }

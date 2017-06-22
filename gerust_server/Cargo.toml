@@ -1,7 +1,6 @@
 [package]
-name = "gerust-context"
+name = "gerust_server"
 version = "0.1.0"
 authors = ["Florian Gilcher <florian.gilcher@asquera.de>"]
 
 [dependencies]
-url = "*"
