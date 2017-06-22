@@ -10,8 +10,8 @@ pub trait HttpContext : Context {
     type Router: Router;
     type Request;
 
-    fn router(&self) -> Self::Router;
-    fn request(&self) -> Self::Request;
+    fn router(&self) -> &Self::Router;
+    fn request(&self) -> &Self::Request;
 
     fn url(&self) -> &Url;
 }
