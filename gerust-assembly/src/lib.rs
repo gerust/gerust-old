@@ -13,6 +13,7 @@ use gerust_router::*;
 use gerust_routing::Router as RouterTrait;
 use gerust_controller::Controller;
 
+
 pub enum Action<V> {
     Continue(V),
     Abort
@@ -90,19 +91,7 @@ struct DispatcherComponent<'a, C: Context + 'a> {
     context: &'a C
 }
 
-//impl<'a, C: Context> FusedComponent<'a, C, Params> for DispatcherComponent<'a, C> {
-//    type Value = Box<Controller<C, Params=Params, Result=Params>>;
-//    type Future = FutureResult<Action<Self::Value>, Box<std::error::Error>>;
-
-//    fn new(context: &'a C) -> Self {
-//        Self { context }
-//    }
-
-//  fn call(&self, input: Params) -> Self::Future {
-        //future.result(Ok(c))
-//    }
-//}
-
+#[derive(Debug)]
 struct ControllerComponent<'a, C: Context + 'a> {
     context: &'a C
 }
