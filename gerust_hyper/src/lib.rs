@@ -7,13 +7,13 @@ extern crate gerust_context;
 
 struct ServerService;
 
+use gerust_context::Context;
+use gerust_http::HttpContext;
+
+use gerust_server::Server;
 use hyper::header::ContentLength;
 use hyper::server::{Http, Request, Response, Service};
 use std::net::ToSocketAddrs;
-
-use gerust_server::Server;
-use gerust_http::HttpContext;
-use gerust_context::Context;
 
 struct HyperGerustService;
 
@@ -21,9 +21,7 @@ trait GerustService<Context: gerust_context::Context> {
     type Component: Component<Context>;
 }
 
-impl GerustService<HttpContext> for HyperGerustService {
-    type Component =
-}
+impl GerustService<HttpContext> for HyperGerustService {}
 
 impl Service for HyperGerustService {
     // boilerplate hooking up hyper's server types
@@ -39,11 +37,9 @@ impl Service for HyperGerustService {
         // We're currently ignoring the Request
         // And returning an 'ok' Future, which means it's ready
         // immediately, and build a Response with the 'PHRASE' body.
-        futures::future::ok(
-            Response::new()
-                .with_header(ContentLength(PHRASE.len() as u64))
-                .with_body(PHRASE)
-        )
+        futures::future::ok(Response::new()
+                                .with_header(ContentLength(PHRASE.len() as u64))
+                                .with_body(PHRASE))
     }
 }
 
@@ -52,7 +48,9 @@ pub struct HyperServer;
 impl Server for HyperServer {
     fn run<A: ToSocketAddrs>(addresses: A) {
         let mut addresses = addresses.to_socket_addrs().unwrap();
-        let server = Http::new().bind(&addresses.next().unwrap(), || Ok(GerustService)).unwrap();
+        let server = Http::new()
+            .bind(&addresses.next().unwrap(), || Ok(GerustService))
+            .unwrap();
         server.run().unwrap();
     }
 }

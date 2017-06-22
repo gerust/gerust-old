@@ -1,5 +1,6 @@
 use std::net::ToSocketAddrs;
 
 pub trait Server {
-    fn run<A: ToSocketAddrs>(addresses: A);
+    fn run<A>(addresses: A)
+        where A: ToSocketAddrs;
 }

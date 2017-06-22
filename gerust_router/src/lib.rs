@@ -77,19 +77,19 @@ impl SubRoute {
         let map = self.components
             .iter()
             .filter({
-                |&c| match *c {
-                    Component::Variable { .. } => true,
-                    Component::Glob { .. } => true,
-                    _ => false,
-                }
-            })
+                        |&c| match *c {
+                            Component::Variable { .. } => true,
+                            Component::Glob { .. } => true,
+                            _ => false,
+                        }
+                    })
             .map({
-                |c| match *c {
-                    Component::Variable { name: ref n } => n,
-                    Component::Glob { name: ref n } => n,
-                    _ => unreachable!(),
-                }
-            });
+                     |c| match *c {
+                         Component::Variable { name: ref n } => n,
+                         Component::Glob { name: ref n } => n,
+                         _ => unreachable!(),
+                     }
+                 });
         Box::new(map)
     }
 
