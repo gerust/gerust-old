@@ -2,6 +2,4 @@ extern crate url;
 
 use url::Url;
 
-pub trait Context : 'static {
-
-}
+pub trait Context: 'static {}

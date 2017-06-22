@@ -1,8 +1,8 @@
 extern crate url;
 extern crate futures;
 
-use url::Url;
 use futures::Future;
+use url::Url;
 
 pub trait Router {
     type Dispatch;

@@ -2,9 +2,9 @@ extern crate url;
 extern crate gerust_routing;
 extern crate futures;
 
-use url::Url;
+use futures::future::{Future, FutureResult};
 use std::collections::BTreeMap;
-use futures::future::{Future,FutureResult};
+use url::Url;
 
 type VariableName = &'static str;
 
@@ -18,17 +18,17 @@ pub enum Component {
 
 #[derive(Debug, Default)]
 pub struct SubRoute {
-    components: Vec<Component>
+    components: Vec<Component>,
 }
 
 #[derive(PartialEq, Clone, Debug)]
 pub struct Params {
-    map: BTreeMap<String, String>
+    map: BTreeMap<String, String>,
 }
 
 impl Params {
     pub fn new() -> Params {
-        Params{ map: BTreeMap::new() }
+        Params { map: BTreeMap::new() }
     }
 
     pub fn insert(&mut self, key: String, value: String) {
@@ -44,12 +44,17 @@ pub struct UrlMatcher<'a> {
     unmatched_path: &'a str,
     url: &'a Url,
     seperator: &'static str,
-    params: Params
+    params: Params,
 }
 
 impl<'a> UrlMatcher<'a> {
     pub fn new(url: &'a Url) -> UrlMatcher<'a> {
-        UrlMatcher { unmatched_path: url.path(), url: url, seperator: "/", params: Params::new() }
+        UrlMatcher {
+            unmatched_path: url.path(),
+            url: url,
+            seperator: "/",
+            params: Params::new(),
+        }
     }
 }
 
@@ -68,20 +73,23 @@ impl SubRoute {
         self.components.push(component);
     }
 
-    pub fn variables<'a>(&'a self) -> Box<Iterator<Item=&'a VariableName> + 'a> {
-        let map = self.components.iter().filter({|&c|
-            match *c {
-                Component::Variable{ .. } => true,
-                Component::Glob { .. } => true,
-                _ => false
-            }
-        }).map({|c| 
-            match *c {
-                Component::Variable{ name: ref n } => n,
-                Component::Glob { name: ref n } => n,
-                _ => unreachable!()
-            }
-        });
+    pub fn variables<'a>(&'a self) -> Box<Iterator<Item = &'a VariableName> + 'a> {
+        let map = self.components
+            .iter()
+            .filter({
+                |&c| match *c {
+                    Component::Variable { .. } => true,
+                    Component::Glob { .. } => true,
+                    _ => false,
+                }
+            })
+            .map({
+                |c| match *c {
+                    Component::Variable { name: ref n } => n,
+                    Component::Glob { name: ref n } => n,
+                    _ => unreachable!(),
+                }
+            });
         Box::new(map)
     }
 
@@ -97,7 +105,7 @@ impl SubRoute {
                     } else {
                         matched = false;
                     }
-                }
+                },
                 &Component::Seperator => {
                     if url.unmatched_path.starts_with(&url.seperator) {
                         let (_, rest) = url.unmatched_path.split_at(1);
@@ -106,7 +114,7 @@ impl SubRoute {
                     } else {
                         matched = false;
                     }
-                }
+                },
                 &Component::Variable { name: n } => {
                     if let Some(index) = url.unmatched_path.find("/") {
                         let (value, rest) = url.unmatched_path.split_at(index);
@@ -120,8 +128,8 @@ impl SubRoute {
                             url.params.insert(n.into(), url.unmatched_path.into())
                         }
                     }
-                }
-                _ => { matched = false }
+                },
+                _ => matched = false,
             }
         }
         matched
@@ -130,7 +138,7 @@ impl SubRoute {
 
 #[derive(Debug)]
 pub struct Router {
-    routes: Vec<SubRoute>
+    routes: Vec<SubRoute>,
 }
 
 impl Router {

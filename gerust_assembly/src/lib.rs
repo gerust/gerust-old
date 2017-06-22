@@ -8,15 +8,15 @@ extern crate gerust_http;
 use futures::*;
 use futures::future::FutureResult;
 use gerust_context::*;
+use gerust_controller::Controller;
 use gerust_http::HttpContext;
 use gerust_router::*;
 use gerust_routing::Router as RouterTrait;
-use gerust_controller::Controller;
 
 
 pub enum Action<V> {
     Continue(V),
-    Abort
+    Abort,
 }
 
 impl<T> From<T> for Action<T> {
@@ -26,11 +26,12 @@ impl<T> From<T> for Action<T> {
 }
 
 #[derive(Debug)]
-struct ComponentFuture<V, F: Future<Item=Action<V>>> {
-    future: F
+struct ComponentFuture<V, F: Future<Item = Action<V>>> {
+    future: F,
 }
 
-impl<V, F: Future<Item=Action<V>, Error=Box<std::error::Error>>> Future for ComponentFuture<V, F> {
+impl<V, F: Future<Item = Action<V>, Error = Box<std::error::Error>>> Future
+    for ComponentFuture<V, F> {
     type Error = F::Error;
     type Item = F::Item;
 
@@ -39,17 +40,23 @@ impl<V, F: Future<Item=Action<V>, Error=Box<std::error::Error>>> Future for Comp
     }
 }
 
-pub trait Component<'a, C> where C: Context {
+pub trait Component<'a, C>
+where
+    C: Context,
+{
     type Value;
-    type Future: Future<Item=Action<Self::Value>, Error=Box<std::error::Error>>;
+    type Future: Future<Item = Action<Self::Value>, Error = Box<std::error::Error>>;
 
     fn new(context: &'a C) -> Self;
     fn call(&self) -> Self::Future;
 }
 
-pub trait FusedComponent<'a, C, Input> where C: Context {
+pub trait FusedComponent<'a, C, Input>
+where
+    C: Context,
+{
     type Value;
-    type Future: Future<Item=Action<Self::Value>, Error=Box<std::error::Error>>;
+    type Future: Future<Item = Action<Self::Value>, Error = Box<std::error::Error>>;
 
     fn new(context: &'a C) -> Self;
     fn call(&self, input: Input) -> Self::Future;
@@ -57,14 +64,17 @@ pub trait FusedComponent<'a, C, Input> where C: Context {
 
 #[derive(Debug)]
 struct RouterComponent<'a, C: Context + 'a> {
-    context: &'a C
+    context: &'a C,
 }
 
 pub trait Routing<R: gerust_routing::Router> {
     fn router(&self) -> R;
 }
 
-impl<C> Routing<gerust_router::Router> for C where C: gerust_http::HttpContext {
+impl<C> Routing<gerust_router::Router> for C
+where
+    C: gerust_http::HttpContext,
+{
     fn router(&self) -> gerust_router::Router {
         gerust_router::Router::new()
     }
@@ -88,10 +98,10 @@ impl<'a, C: HttpContext + Context> Component<'a, C> for RouterComponent<'a, C> {
 
 #[derive(Debug)]
 struct DispatcherComponent<'a, C: Context + 'a> {
-    context: &'a C
+    context: &'a C,
 }
 
 #[derive(Debug)]
 struct ControllerComponent<'a, C: Context + 'a> {
-    context: &'a C
+    context: &'a C,
 }
